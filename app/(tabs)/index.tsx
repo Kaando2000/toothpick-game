@@ -94,7 +94,7 @@ export default function App() {
 
   // --- Render ---
   return (
-    <ImageBackground source={woodBackgroundImage} style={styles.container}>
+    <ImageBackground source={woodBackgroundImage} style={styles.container} resizeMode="cover">>
       <SafeAreaView style={styles.safeArea}>
 
         <View style={styles.headerContainer}>
