@@ -1,24 +1,17 @@
-// If you see a "Could not resolve 'react-native'" error,
-// it means your project dependencies need to be refreshed.
-// Please stop the server and run the following commands in your terminal:
-// 1. rm -rf node_modules
-// 2. npm install
-// 3. npx expo run:android
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, ImageBackground, Image } from 'react-native';
 
 // --- ASSETS ---
-// Load images from the local assets/images folder
 const woodBackgroundImage = require('../../assets/images/background.jpg');
 const toothpickImage = require('../../assets/images/toothpick.png');
 
-// --- Type Definitions for TypeScript ---
+// --- TYPE DEFINITIONS ---
 type Board = (0 | 1 | 2)[];
 
-// --- Constants ---
+// --- CONSTANTS ---
 const INITIAL_BOARD: Board = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-// --- Main App Component ---
+// --- MAIN APP COMPONENT ---
 export default function App() {
   const [board, setBoard] = useState<Board>(INITIAL_BOARD);
   const [moveCount, setMoveCount] = useState<number>(0);
@@ -29,7 +22,7 @@ export default function App() {
   const pairs = board.filter(item => item === 2).length;
   const win = pairs === 5;
 
-  // --- Game Logic ---
+  // --- GAME LOGIC ---
   const handleSlotPress = (index: number) => {
     if (win) return;
 
@@ -48,7 +41,7 @@ export default function App() {
   const isMoveValid = (startPos: number, endPos: number): boolean => {
     if (startPos === endPos) return false;
     if (board[startPos] !== 1 || board[endPos] !== 1) return false;
-
+    
     const step = (endPos > startPos) ? 1 : -1;
     let jumpValue = 0;
     for (let i = startPos + step; i !== endPos; i += step) {
@@ -56,15 +49,15 @@ export default function App() {
     }
     return jumpValue === 2;
   };
-
+  
   const handleValidMove = (startPos: number, endPos: number) => {
       setHistory([...history, board]);
-
+      
       const newBoard: Board = [...board];
       newBoard[startPos] = 0;
       newBoard[endPos] = 2;
       setBoard(newBoard);
-
+      
       const newMoveCount = moveCount + 1;
       setMoveCount(newMoveCount);
 
@@ -92,11 +85,12 @@ export default function App() {
     setSelectedIndex(null);
   };
 
-  // --- Render ---
+  // --- RENDER ---
   return (
-    <ImageBackground source={woodBackgroundImage} style={styles.container} resizeMode="cover">>
+    <View style={styles.container}>
+      <Image source={woodBackgroundImage} style={styles.backgroundImage} resizeMode="cover" />
       <SafeAreaView style={styles.safeArea}>
-
+        
         <View style={styles.headerContainer}>
             <Text style={styles.title}>Grandfather's Game</Text>
             <Text style={styles.subtitle}>Move the toothpicks to form 5 pairs.</Text>
@@ -130,24 +124,29 @@ export default function App() {
             )}
 
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={handleUndo} style={styles.button} disabled={history.length === 0}>
-                <Text style={[styles.buttonSymbol, history.length === 0 && styles.disabledSymbol]}>⟲</Text>
+                <TouchableOpacity onPress={handleUndo} style={[styles.button, history.length === 0 && styles.disabledButton]} disabled={history.length === 0}>
+                <Text style={styles.buttonSymbol}>⟲</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleReset} style={styles.button}>
+                <TouchableOpacity onPress={handleReset} style={[styles.button, styles.resetButton]}>
                 <Text style={styles.buttonSymbol}>⟳</Text>
                 </TouchableOpacity>
             </View>
         </View>
 
       </SafeAreaView>
-    </ImageBackground>
+    </View>
   );
 }
 
-// --- Styles (Adjusted for Centered Layout & Buttons) ---
+// --- STYLES ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
   },
   safeArea: {
     flex: 1,
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
   },
   gameContainer: {
     height: '70%',
-    width: '75%',
+    width: '75%', 
     justifyContent: 'center',
   },
   footerContainer: {
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 45,
+    fontSize: 42,
     fontWeight: 'bold',
     color: '#F5DEB3',
     fontFamily: 'serif',
@@ -184,15 +183,12 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#D2B48C',
+    marginTop: 8,
     textAlign: 'center',
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
   },
   moveCounter: {
-    fontSize: 15,
+    fontSize: 24,
     fontWeight: '600',
     color: 'white',
     marginBottom: 20,
@@ -210,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   toothpickImage: {
-    width: 90,
+    width: 90, 
     height: '180%',
     resizeMode: 'contain',
   },
