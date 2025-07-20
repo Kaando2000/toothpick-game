@@ -1,13 +1,14 @@
 {
-  "name": "toothpickgame",
-  "main": "expo-router/entry",
+ "name": "toothpickgame",
   "version": "1.0.0",
+  "homepage": "https://Kaando2000.github.io/toothpick-game",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "deploy": "gh-pages -d dist",
     "lint": "expo lint"
   },
   "dependencies": {
