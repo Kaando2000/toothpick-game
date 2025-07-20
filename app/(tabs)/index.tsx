@@ -138,10 +138,15 @@ export default function App() {
   );
 }
 
-// --- Styles (Adjusted for Centered Layout & Buttons) ---
+// --- STYLES ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  backgroundImage: {
+    ...StyleSheet.absoluteFillObject,
+    width: '100%',
+    height: '100%',
   },
   safeArea: {
     flex: 1,
@@ -157,7 +162,7 @@ const styles = StyleSheet.create({
   },
   gameContainer: {
     height: '70%',
-    width: '75%',
+    width: '75%', 
     justifyContent: 'center',
   },
   footerContainer: {
@@ -167,7 +172,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   title: {
-    fontSize: 45,
+    fontSize: 42,
     fontWeight: 'bold',
     color: '#F5DEB3',
     fontFamily: 'serif',
@@ -178,15 +183,12 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#D2B48C',
+    marginTop: 8,
     textAlign: 'center',
-    textShadowColor: 'rgba(0, 0, 0, 0.7)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
   },
   moveCounter: {
-    fontSize: 15,
+    fontSize: 24,
     fontWeight: '600',
     color: 'white',
     marginBottom: 20,
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   toothpickImage: {
-    width: 90,
+    width: 90, 
     height: '180%',
     resizeMode: 'contain',
   },
